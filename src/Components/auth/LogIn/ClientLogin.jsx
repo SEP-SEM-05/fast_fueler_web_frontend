@@ -153,7 +153,7 @@ export default function ClientLogin() {
                         color: "#ffffff",
                     }}
                 >
-                    CLIENT LOGIN ##
+                    CLIENT LOGIN
                 </Typography>
                 <Box sx={{ mt: 1 }}>
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
