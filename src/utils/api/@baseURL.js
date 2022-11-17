@@ -4,7 +4,7 @@ import url from "./urlString";
 let baseApi = "/";
 const refreshToken = localStorage.getItem("refreshToken");
 const accessToken = sessionStorage.getItem("accessToken");
-
+console.log(url)
 if (url) {
 
     baseApi = axios.create({
