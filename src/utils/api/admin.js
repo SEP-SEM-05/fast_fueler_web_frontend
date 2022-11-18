@@ -323,7 +323,7 @@ const getPerVehicleCount = async () => {
         return response.data;
     } 
     catch (err) {
-        // console.log(err);
+        console.log(err);
         return err.response.data;
     }
 }
@@ -354,7 +354,38 @@ const getOrgVehicleCount = async () => {
         return response.data;
     } 
     catch (err) {
-        // console.log(err);
+        console.log(err);
+        return err.response.data;
+    }
+}
+
+//get count of each type of vehicles
+const getVehicleCount = async () => {
+
+    try {
+
+        const refreshToken = localStorage.getItem("refreshToken");
+        const accessToken = sessionStorage.getItem("accessToken");
+
+        let api = axios.create({
+            baseURL: url,
+            headers: {
+                "x-refresh-token": refreshToken ? "Bearer " + refreshToken : undefined,
+                "x-access-token": accessToken ? "Bearer " + accessToken : undefined,
+            },
+        });
+
+        let response = await api.get(
+            `admin/countvehicle`
+        )
+
+        if(response.headers["x-access-token"]){
+            sessionStorage.setItem("accessToken", response.headers["x-access-token"]);
+        }
+        return response.data;
+    } 
+    catch (err) {
+        console.log(err);
         return err.response.data;
     }
 }
@@ -371,5 +402,6 @@ export {
     sendEmail,
     sendManyEmail,
     getPerVehicleCount,
-    getOrgVehicleCount 
+    getOrgVehicleCount,
+    getVehicleCount 
 };

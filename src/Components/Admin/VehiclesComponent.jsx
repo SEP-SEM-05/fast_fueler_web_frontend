@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import Chart from "react-apexcharts";
-import { getPerVehicleCount, getOrgVehicleCount } from '../../utils/api/admin';
+import { getVehicleCount } from '../../utils/api/admin';
 
 const VehiclesComponent = () => {
 
@@ -10,7 +10,7 @@ const VehiclesComponent = () => {
 
   const [series1, setSeries1] = useState([]);
   const [series2, setSeries2] = useState([]);
-  let [total, setTotal] = useState("##");
+  let [total, setTotal] = useState("0");
 
   useEffect(() => {
 
@@ -18,39 +18,24 @@ const VehiclesComponent = () => {
 
         try {
           
-          let perResponse = await getPerVehicleCount();
+          let response = await getVehicleCount();
 
-          let perVehicleCount = perResponse.vehicleCount; 
+          let petVehicleCount = response.petrolVelCount; 
+          let dieVehicleCount = response.dieselVelCount; 
 
-          if (perResponse.status === 'ok') {
-            //console.log(count);
-            console.log(perVehicleCount);
-            setSeries1(perVehicleCount);
+          if (response.status === 'ok') {
+            setSeries1(petVehicleCount);
+            setSeries2(dieVehicleCount);
           }
           else {
-              console.log(perResponse.error);
-          }
-
-          let orgResponse = await getOrgVehicleCount();
-
-          let orgVehicleCount = orgResponse.vehicleCount; 
-
-          if (orgResponse.status === 'ok') {
-            //console.log(count);
-            console.log(orgVehicleCount);
-            setSeries2(orgVehicleCount);
-          }
-          else {
-              console.log(orgResponse.error);
+              console.log(response.error);
           }
           let sum = 0
           for (let i = 0; i < vehicleType.length; i++) {
-            sum += perVehicleCount[i] + orgVehicleCount[i];
+            sum += petVehicleCount[i] + dieVehicleCount[i];
           };
           setTotal(sum);
-          
-
-
+        
         }
         catch (err) {
             console.log(err)
@@ -61,40 +46,7 @@ const VehiclesComponent = () => {
     
   }, []);
 
-
-
-
-
-  // // Personal vehicles details
-  // const options1 = {
-  //   labels: [
-  //     "Motorcycle",
-  //     "Three-wheeler",
-  //     "Vans",
-  //     "Cars",
-  //     "Land-vehicle",
-  //     "Lorries",
-  //     "Buses",
-  //   ],
-  //   plotOptions: {
-  //     pie: {
-  //       donut: {
-  //         size: "60px",
-  //         labels: {
-  //           show: true,
-  //           total: {
-  //             show: true,
-  //             fontSize: "20px",
-  //             color: "#000000",
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // };
-  // const series1 = [70109, 15546, 9658, 23879, 9237, 13456, 14789];
-
-  // Personal vehicles details
+  // Petrol vehicles details
   const options1 = {
     labels: vehicleType,
     plotOptions: {
@@ -114,9 +66,9 @@ const VehiclesComponent = () => {
     },
   };
 
-  //Organization vehicles details
+  //Diesel vehicles details
   const options2 = {
-    labels: vehicleType,
+    labels: vehicleType.slice(1,6),
     plotOptions: {
       pie: {
         donut: {
@@ -133,38 +85,6 @@ const VehiclesComponent = () => {
       },
     },
   };
-
-  
-
-  // //Organization vehicles details
-  // const options2 = {
-  //   labels: [
-  //     "Motorcycle",
-  //     "Three-wheeler",
-  //     "Vans",
-  //     "Cars",
-  //     "Land-vehicle",
-  //     "Lorries",
-  //     "Buses",
-  //   ],
-  //   plotOptions: {
-  //     pie: {
-  //       donut: {
-  //         size: "60px",
-  //         labels: {
-  //           show: true,
-  //           total: {
-  //             show: true,
-  //             fontSize: "20px",
-  //             color: "#000000",
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // };
-  // //values of vehicle count
-  // const series2 = [17109, 13546, 18658, 24879, 5237, 9456, 15789];
 
   return (
     <Container>
@@ -213,7 +133,7 @@ const VehiclesComponent = () => {
           sx={{ backgroundColor: "#dadada", borderRadius: 8 }}
         >
           <Typography variant="h5" marginY={2} textAlign={"center"}>
-            Personal Vehicles
+            Petrol Vehicles
           </Typography>
           <Grid marginY={2}>
             <Chart
@@ -234,12 +154,12 @@ const VehiclesComponent = () => {
           sx={{ backgroundColor: "#dadada", borderRadius: 8 }}
         >
           <Typography variant="h5" marginY={2} textAlign={"center"}>
-            Organization Vehicles
+            Diesel Vehicles
           </Typography>
           <Grid marginY={2}>
             <Chart
               options={options2}
-              series={series2}
+              series={series2.slice(1,6)}
               type="donut"
               width="100%"
               //height={500}
