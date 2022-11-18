@@ -22,7 +22,6 @@ const OngoingComponent = () => {
             let ceypetcCount = ceypetcResponse.stationCount;
 
             if (ceypetcResponse.status === 'ok') {
-              console.log(ceypetcCount);
               setCeypetcCount(ceypetcCount)
             }
             else {
@@ -34,7 +33,6 @@ const OngoingComponent = () => {
             let iocCount = iocResponse.stationCount;
 
             if (iocResponse.status === 'ok') {
-              console.log(iocCount);
               setIocCount(iocCount)
             }
             else {

@@ -41,7 +41,6 @@ const UnregisteredComponent = () => {
             let stationDetails = response.station;
 
             if (response.status === 'ok') {
-              console.log(stationDetails);
               setRows(
                 stationDetails
               )
@@ -80,7 +79,7 @@ const UnregisteredComponent = () => {
     });
 
     if (response.status === "ok") {
-      console.log(response);
+      console.log("success");
     } else {
       console.log("error");
     }
@@ -94,13 +93,11 @@ const UnregisteredComponent = () => {
     let response = await registerAllNewStation();
 
     if (response.status === "ok") {
-      console.log(response);
+      console.log("success");
     } else {
       console.log("error");
     }
-
-    //handleClose();  
-    //handleSBOpen();
+    
   }
 
   const handleSBOpen = () => {

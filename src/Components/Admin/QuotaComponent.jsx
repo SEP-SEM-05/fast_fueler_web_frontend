@@ -233,7 +233,7 @@ const QuotaComponent = () => {
           </TableHead>
           <TableBody>
             {rows && rows.map((row) => (
-              <TableRow key={row.name}>
+              <TableRow key={row.vehicleType}>
                 <TableCell
                   align="center"
                   style={{ color: "white" }}
