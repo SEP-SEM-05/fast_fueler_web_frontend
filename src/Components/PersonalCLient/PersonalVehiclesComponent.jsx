@@ -107,8 +107,7 @@ export default function PersonalVehicles() {
     };
 
     const handleClickOpenQR = (vehicle) => {
-
-        let qrValue = "Registration No.: " + vehicle.registrationNo;
+        let qrValue = vehicle.registrationNo + "&" + user.data.nic;
         setQrValue(qrValue);
         setOpenQR(true);
         setValue(vehicle.stations);

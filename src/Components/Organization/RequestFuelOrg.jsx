@@ -64,8 +64,8 @@ const RequestFuelOrg = () => {
 
             if (status === 'ok') {
 
-                let qrValue = "Registration No.: " + user.data.registrationNo;
-                setQrValue(qrValue);
+                // let qrValue = user.data.registrationNo;
+                // setQrValue(qrValue);
 
                 setStationNameandCity(response.stations);
 
@@ -119,6 +119,8 @@ const RequestFuelOrg = () => {
     };
 
     const handleClickOpenQR = () => {
+        let qrValue = user.data.registrationNo;
+        setQrValue(qrValue);
         setOpenQR(true);
     };
 
