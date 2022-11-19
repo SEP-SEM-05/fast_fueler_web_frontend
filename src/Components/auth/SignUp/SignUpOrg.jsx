@@ -50,8 +50,7 @@ export default function SignUpOrg() {
 
     const navigate = useNavigate();
     
-    const { user, signUser } = useAuth();
-
+    const signUser = useAuth();
     const [openSB, setOpenSB] = React.useState(false);
     const [isSbError, setIsSbError] = React.useState(false);
     const [sbMsg, setSbMsg] = React.useState("");
