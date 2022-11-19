@@ -31,8 +31,8 @@ export default function ClientLogin() {
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const signUser  = useAuth();
-
+    const {user, signUser}  = useAuth();
+    
     const [openSB, setOpenSB] = React.useState(false);
     const [isSbError, setIsSbError] = React.useState(false);
     const [sbMsg, setSbMsg] = React.useState("");

@@ -53,7 +53,7 @@ export default function SignUpPer() {
 
     const navigate = useNavigate();
     
-    const signUser = useAuth();
+    const {user, signUser}  = useAuth();
     const [openSB, setOpenSB] = React.useState(false);
     const [isSbError, setIsSbError] = React.useState(false);
     const [sbMsg, setSbMsg] = React.useState("");
