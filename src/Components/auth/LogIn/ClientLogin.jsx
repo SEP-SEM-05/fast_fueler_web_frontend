@@ -31,7 +31,7 @@ export default function ClientLogin() {
     const navigate = useNavigate();
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { user, signUser } = useAuth();
+    const signUser  = useAuth();
 
     const [openSB, setOpenSB] = React.useState(false);
     const [isSbError, setIsSbError] = React.useState(false);
@@ -245,3 +245,5 @@ export default function ClientLogin() {
         </ThemeProvider>
     );
 }
+
+
