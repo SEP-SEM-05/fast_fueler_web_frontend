@@ -3,9 +3,8 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { getNewlyregisteredStation, sendEmail, sendManyEmail } from "../../utils/api/admin";
-
 
 //main function
 const NewlyRegistered = () => {
@@ -13,7 +12,6 @@ const NewlyRegistered = () => {
   const [rows, setRows] = useState([]);
   const [sendList, setSendList] = useState([]);
   const [newId, setNewId] = React.useState();
-
 
   useEffect(() => {
 
@@ -26,7 +24,6 @@ const NewlyRegistered = () => {
             let stationDetails = response.station;
 
             if (response.status === 'ok') {
-              console.log(stationDetails);
               setRows(
                 stationDetails
               )
@@ -56,14 +53,11 @@ const NewlyRegistered = () => {
     if (response.status == "ok") {
       setNewId(row.registrationNo);
       sendList.push(row.registrationNo);
-      console.log(row.email);
 
     } else {
       console.log("error");
     }
 
-    //handleClose();
-    //handleSBOpen();
   }
 
   const sendAllAnnouncement = async (rows) => {
@@ -74,34 +68,12 @@ const NewlyRegistered = () => {
 
     if (response.status == "ok") {
       setNewId("all");
-      console.log(rows);
 
     } else {
       console.log("error");
     }
 
-    //handleClose();
-    //handleSBOpen();
   }
-
-  //function to send email
-  const handleClick = (row) => {
-    //setOpen(true);
-    //setVehicleType(vehicleType);
-    //let sendMail = sendMail();
-
-    console.log("done")
-  };
-
-  // const showButton = (regNo) => {
-  //   console.log(sendList.includes(regNo));
-  //   if (sendList.includes(regNo)){
-  //     return false;
-  //   }else{
-  //     return true;
-  //   }
-  // }
-
 
   return (
     <Grid

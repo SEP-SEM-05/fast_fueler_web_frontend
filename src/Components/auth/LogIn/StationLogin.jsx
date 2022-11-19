@@ -22,7 +22,7 @@ const darkTheme = createTheme({
 });
 
 export default function StationLogin() {
-  const { user, signUser } = useAuth();
+  const {user, signUser}  = useAuth();
   const navigate = useNavigate();
 
   const [openSB, setOpenSB] = React.useState(false);

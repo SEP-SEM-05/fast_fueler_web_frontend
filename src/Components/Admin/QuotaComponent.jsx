@@ -20,27 +20,6 @@ function createData(vehicleType, liter) {
   return { vehicleType, liter };
 }
 
-
-//Petrol fuel quota details
-// const petrolRows = [
-//   createData("Motorcycles", "4.000L"),
-//   createData("Three-wheelers", "5.000L"),
-//   createData("Vans", "20.000L"),
-//   createData("Cars", "20.000L"),
-//   createData("Land vehicle", "15.000L"),
-//   createData("Lorries", "50.000L"),
-// ];
-
-//Diesel fuel quota details
-// const dieselRows = [
-//   createData("Buses", "40.000L"),
-//   createData("Three-wheelers", "5.000L"),
-//   createData("Vans", "20.000L"),
-//   createData("Cars", "20.000L"),
-//   createData("Land vehicle", "15.000L"),
-//   createData("Lorries", "50.000L"),
-// ];
-
 //main function
 const QuotaComponent = () => {
 
@@ -254,7 +233,7 @@ const QuotaComponent = () => {
           </TableHead>
           <TableBody>
             {rows && rows.map((row) => (
-              <TableRow key={row.name}>
+              <TableRow key={row.vehicleType}>
                 <TableCell
                   align="center"
                   style={{ color: "white" }}
@@ -302,22 +281,6 @@ const QuotaComponent = () => {
               />
             </Typography>
 
-            {/* <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Fuel value"
-              type="number"
-              fullWidth
-              variant="outlined"
-              color="info"
-              focused
-              autoComplete="off"
-              required
-              onChange={(e) => {
-                setValue(e.target.value);
-              }}
-            /> */}
             <TextField
               autoFocus
               margin="dense"

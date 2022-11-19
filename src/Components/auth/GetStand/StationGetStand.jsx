@@ -24,7 +24,7 @@ export default function StationGetStand() {
 
   const regNo = window.location.pathname.slice(-10);
   const navigate = useNavigate();
-  const { user, signUser } = useAuth();
+  const {user, signUser}  = useAuth();
 
   const [openSB, setOpenSB] = React.useState(false);
   const [isSbError, setIsSbError] = React.useState(false);
