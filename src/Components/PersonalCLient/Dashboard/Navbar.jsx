@@ -19,7 +19,7 @@ import BellIcon from "@mui/icons-material/Notifications";
 import { NavLink } from "react-router-dom";
 import FUELIMG from "../../../assets/station.gif";
 import useAuth from "../../../utils/providers/AuthProvider";
-import { getUnreadNotificationCount, getNotifications } from "../../../utils/api/personal";
+import { getUnreadNotificationCount, getNotifications, markAsRead } from "../../../utils/api/personal";
 import {
     Badge,
     Grid,
@@ -31,6 +31,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    Chip,
 } from "@mui/material";
 
 const drawerWidth = 240;
@@ -46,6 +47,9 @@ function DrawerAppBar() {
     const [anchorElNotf, setAnchorElNotf] = React.useState(null);
     const [notificationCount, setNotificationCount] = React.useState(0);
     const [notifications, setNotifications] = React.useState([]);
+    const [openNotDetails, setOpenNotDetails] = React.useState(false);
+    const [selectedNotification, setSelectedNotification] = React.useState({});
+    const [isMarked, setIsMarked] = React.useState(false);
 
     React.useEffect(() => {
 
@@ -78,7 +82,7 @@ function DrawerAppBar() {
         }
 
         fetchData();
-    }, []);
+    }, [isMarked]);
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -143,6 +147,41 @@ function DrawerAppBar() {
         localStorage.clear();
         document.location = '/';
     }
+
+    const handleClickOpenNotDetails = (notification) => {
+        setSelectedNotification(notification);
+        setOpenNotDetails(true);
+    };
+
+    const handleCloseNotDetails = async (notification) => {
+
+        let response = await markAsRead(notification._id);
+
+        let status = response.status;
+
+        if (status === 'ok') {
+
+            handleCloseNotfMenu()
+            setOpenNotDetails(false);
+            setIsMarked(true);
+        }
+        else if (status === 'auth-error') {
+
+            // sessionStorage.clear();
+            // localStorage.clear();
+
+            console.log(response.error);
+            document.location = '/';
+        }
+        else {
+
+            // sessionStorage.clear();
+            // localStorage.clear();
+
+            console.log(response.error);
+            // document.location = '/';
+        }
+    };
 
     const drawer = (
         <Box
@@ -249,6 +288,7 @@ function DrawerAppBar() {
                                                 borderBottom: "1px solid #e8eaf6",
                                                 backgroundColor: notification.isRead ? "" : "#e3f2fd",
                                             }}
+                                            onClick={() => handleClickOpenNotDetails(notification)}
                                         >
                                             <Grid
                                                 container
@@ -277,6 +317,33 @@ function DrawerAppBar() {
                                     );
                                 })}
                             </Menu>
+
+                            <Dialog open={openNotDetails} onClose={() => handleCloseNotDetails(selectedNotification)}>
+                                <DialogTitle sx={{ fontWeight: "bold", pb: 1 }}>
+                                    <Box sx={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
+                                        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                                            {selectedNotification.title}
+                                        </Typography>
+                                        <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+                                            <Chip
+                                                label={selectedNotification.time}
+                                                color="success"
+                                            />
+                                        </Typography>
+                                    </Box>
+                                </DialogTitle>
+                                <Divider />
+                                <DialogContent sx={{ pr: 8, pl: 4 }}>
+                                    <Typography variant="subtitle1" >
+                                        {selectedNotification.msg}
+                                    </Typography>
+                                </DialogContent>
+                                <DialogActions sx={{ p: 3 }}>
+                                    <Button variant="outlined" onClick={() => handleCloseNotDetails(selectedNotification)} color={"error"}>
+                                        Close
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
 
                             <Typography noWrap sx={{ pr: 1 }}>
                                 {user.data.fullName}

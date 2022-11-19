@@ -234,4 +234,35 @@ const getNotifications = async (id) => {
     }
 }
 
-export { signUpPersonal, signInPersonal, getDashBoard, changeStations, addVehicle, requestFuel, getUnreadNotificationCount, getNotifications };
+//mark a notification as read
+const markAsRead = async (id) => {
+
+    try {
+
+        const refreshToken = localStorage.getItem("refreshToken");
+        const accessToken = sessionStorage.getItem("accessToken");
+
+        let api = axios.create({
+            baseURL: url,
+            headers: {
+                "x-refresh-token": refreshToken ? "Bearer " + refreshToken : undefined,
+                "x-access-token": accessToken ? "Bearer " + accessToken : undefined,
+            },
+        });
+
+        let response = await api.get(
+            `personal/mark/${id}`
+        )
+
+        if(response.headers["x-access-token"]){
+            sessionStorage.setItem("accessToken", response.headers["x-access-token"]);
+        }
+        return response.data;
+    } 
+    catch (err) {
+        console.log(err);
+        return err.response.data;
+    }
+}
+
+export { signUpPersonal, signInPersonal, getDashBoard, changeStations, addVehicle, requestFuel, getUnreadNotificationCount, getNotifications, markAsRead };
