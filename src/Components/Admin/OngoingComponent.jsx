@@ -8,7 +8,7 @@ import { getRegisteredStationCount } from "../../utils/api/admin";
 //main function
 const OngoingComponent = () => {
 
-  const [ceypetcCount, setCeypetcCount] = useState();
+  const [ceypetcoCount, setCeypetcoCount] = useState();
   const [iocCount, setIocCount] = useState();
 
   useEffect(() => {
@@ -17,15 +17,15 @@ const OngoingComponent = () => {
 
         try {
 
-            let ceypetcResponse = await getRegisteredStationCount("ceypetc");
+            let ceypetcoResponse = await getRegisteredStationCount("ceypetco");
 
-            let ceypetcCount = ceypetcResponse.stationCount;
+            let ceypetcoCount = ceypetcoResponse.stationCount;
 
-            if (ceypetcResponse.status === 'ok') {
-              setCeypetcCount(ceypetcCount)
+            if (ceypetcoResponse.status === 'ok') {
+              setCeypetcoCount(ceypetcoCount)
             }
             else {
-                console.log(ceypetcResponse.error);
+                console.log(ceypetcoResponse.error);
             }
 
             let iocResponse = await getRegisteredStationCount("ioc");
@@ -52,7 +52,7 @@ const OngoingComponent = () => {
 
   //data for pie chart
   const options1 = {
-    labels: ["CEYPETC", "IOC"],
+    labels: ["CEYPETCO", "IOC"],
     plotOptions: {
       pie: {
         donut: {
@@ -69,7 +69,7 @@ const OngoingComponent = () => {
       },
     },
   };
-  const series1 = [ceypetcCount, iocCount];
+  const series1 = [ceypetcoCount, iocCount];
 
   return (
     <Container>
