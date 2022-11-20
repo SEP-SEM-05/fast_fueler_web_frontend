@@ -86,9 +86,9 @@ const QueuesComponent = () => {
       regNo: user.data.registrationNo,
       fuelType: fuelType,
       vehicles: fuelQueueToGo,
-      announcedTime: new Date().toString().split("GMT")[0],
+      announcedTime: new Date(),
       estQueueEndTime: estEndTime,
-      startTime: new Date(startTime).toString().split("GMT")[0],
+      startTime: new Date(startTime),
       fuelAmount: fuelAmount
     });
 
