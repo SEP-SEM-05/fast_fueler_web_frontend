@@ -281,6 +281,7 @@ const QueuesComponent = () => {
                         required
                         focused
                         color="info"
+                        id="startTime"
                         helperText="Select the estimated queue starting time"
                         {...params}
                       />

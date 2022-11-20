@@ -1,7 +1,7 @@
 import { slowCypressDown } from 'cypress-slow-down'
 
 // slow down the testing process
-slowCypressDown();
+// slowCypressDown();
 
 describe("renders the home page", () => {
     before(() => {
@@ -44,9 +44,8 @@ describe("renders the home page", () => {
     cy.get(".MuiDialogActions-root > .MuiButtonBase-root").click();
   });
 
-  it("announce a fuel queue", () => {
+  it("announce a fuel queue form", () => {
 
-    let test_wrong_fuel_amount = -12;
     let test_fuel_amount = 200;
 
     cy.get('.css-12tyqda > [href="/fuelstation/fuelqueues"]').click();
@@ -55,11 +54,6 @@ describe("renders the home page", () => {
     cy.get("#fuelAmount")
       .type(test_fuel_amount)
       .should("have.value", test_fuel_amount);
-    cy.get("#startDateTime").type("2022-11-10T10:00");
-    cy.get("#avgTime").type(10);
-    cy.get("#estEndTime > .MuiChip-label").click();
-    cy.get(":nth-child(6) > .MuiButtonBase-root").click();
+    
   });
-
-
 });
