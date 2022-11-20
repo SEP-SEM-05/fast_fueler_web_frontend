@@ -244,14 +244,6 @@ const Distribution = () => {
             onClick={handleClose}
             sx={{ fontWeight: "bold" }}
           >
-            Download Fast Fueler
-          </Button>
-          <Button
-            color="info"
-            size="large"
-            onClick={handleClose}
-            sx={{ fontWeight: "bold" }}
-          >
             Close
           </Button>
         </DialogActions>
